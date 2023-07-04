@@ -1,3 +1,4 @@
+import json
 import sys
 import pytest
 
@@ -43,5 +44,5 @@ def test_load_json_empty_file() -> None:
     :return: None
     """
 
-    assert load_json('tests/test_data_loaders/test_data/test_json_loader_empty_file.json') == []
-
+    with pytest.raises(json.JSONDecodeError):
+        load_json('tests/test_data_loaders/test_data/test_json_loader_empty_file.json')
