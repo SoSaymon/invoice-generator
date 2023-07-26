@@ -7,6 +7,7 @@ sys.path.append(".")
 from src.invoice_generator.data_loaders.json_loader import load_json
 
 
+@pytest.mark.data_loader
 @pytest.mark.parametrize(
     "file_path, expected",
     [
@@ -28,6 +29,7 @@ def test_load_json(file_path: str, expected: list[dict]) -> None:
     assert load_json(file_path) == expected
 
 
+@pytest.mark.data_loader
 def test_load_json_non_existing_file() -> None:
     """
     Test load_json function with non-existing file
@@ -38,6 +40,7 @@ def test_load_json_non_existing_file() -> None:
         load_json('tests/test_data_loaders/test_data/test_json_loader_non_existing_file.json')
 
 
+@pytest.mark.data_loader
 def test_load_json_empty_file() -> None:
     """
     Test load_json function with empty file

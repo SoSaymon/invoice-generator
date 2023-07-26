@@ -6,6 +6,7 @@ sys.path.append('.')
 from src.invoice_generator.data_loaders.csv_loader import load_csv
 
 
+@pytest.mark.data_loader
 @pytest.mark.parametrize(
     'file_path, separator, expected',
     [
@@ -33,6 +34,7 @@ def test_load_csv(file_path: str, separator: str, expected: list[dict]) -> None:
     assert load_csv(file_path, separator) == expected
 
 
+@pytest.mark.data_loader
 def test_load_csv_non_existing_file() -> None:
     """
     Test load_csv function with non-existing file
@@ -43,6 +45,7 @@ def test_load_csv_non_existing_file() -> None:
         load_csv('tests/test_data_loaders/test_data/test_csv_loader_non_existing_file.csv')
 
 
+@pytest.mark.data_loader
 def test_load_csv_empty_file() -> None:
     """
     Test load_csv function with empty file
