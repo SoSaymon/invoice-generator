@@ -70,4 +70,22 @@ class NIP(ValueObject):
         NIP normalization
         """
         return self._value.replace('-', '')
+
+    @property
+    def value(self) -> object:
+        """
+        NIP value getter
+        """
+        return self._value
+
+    @value.setter
+    def value(self, value: str) -> None:
+        """
+        NIP value setter
+        """
+        self._value = value
+        self._value = self.normalize()
+
+        if not self.validator():
+            raise ValueError("Invalid NIP")
     

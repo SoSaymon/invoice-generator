@@ -69,3 +69,21 @@ class BankAccountNumber(ValueObject):
         BankAccountNumber normalizer
         """
         return self._value.replace(" ", "")
+
+    @property
+    def value(self) -> str:
+        """
+        BankAccountNumber value getter
+        """
+        return self._value
+
+    @value.setter
+    def value(self, value: str) -> None:
+        """
+        BankAccountNumber value setter
+        """
+        self._value = value
+        self._value = self.normalize()
+
+        if not self.validator():
+            raise ValueError("Invalid bank account number")

@@ -76,3 +76,20 @@ class REGON(ValueObject):
         Normalize REGON
         """
         return self._value.replace("-", "").replace(" ", "")
+
+    @property
+    def value(self) -> str:
+        """
+        REGON value getter
+        """
+        return self._value
+
+    @value.setter
+    def value(self, value: str) -> None:
+        """
+        REGON value setter
+        """
+        self._value = value
+        self._value = self.normalize()
+        if not self.validator():
+            raise ValueError("Invalid REGON")

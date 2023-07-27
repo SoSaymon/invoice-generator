@@ -84,3 +84,36 @@ class TelephoneNumber(ValueObject):
         Get telephone number
         """
         return self._prefix + self._value
+
+    @property
+    def value(self) -> str:
+        """
+        TelephoneNumber value getter
+        """
+        return self._value
+
+    @property
+    def prefix(self) -> str:
+        """
+        TelephoneNumber prefix getter
+        """
+        return self._prefix
+
+    @value.setter
+    def value(self, value: str):
+        """
+        TelephoneNumber value setter
+        """
+        self._value = value
+        self._value = self.normalize()
+        if not self.validator():
+            raise ValueError("Invalid telephone number")
+
+    @prefix.setter
+    def prefix(self, prefix: str):
+        """
+        TelephoneNumber prefix setter
+        """
+        self._prefix = prefix
+        if not self.prefix_validator():
+            raise ValueError("Invalid telephone number prefix")
