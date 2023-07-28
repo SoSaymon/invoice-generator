@@ -1,3 +1,4 @@
+from pyban.iban import IBAN
 from src.invoice_generator.interfaces.value_objects import ValueObject
 
 
@@ -52,23 +53,20 @@ class BankAccountNumber(ValueObject):
         """
         BankAccountNumber validator
         """
-        if len(self._value) != 26:
-            return False
+        if not self._value[:2].isalpha():
+            self._value = "PL" + self._value
+
         try:
-            int(self._value)
+            IBAN(self._value)
         except ValueError:
             return False
-        weights = [7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 7, 3, 9, 1, 3, 7, 9, 1, 3, 7]
-        sum = 0
-        for i in range(20):
-            sum += int(self._value[i]) * weights[i]
-        return sum % 10 == int(self._value[20])
+        return True
 
     def normalize(self) -> str:
         """
         BankAccountNumber normalizer
         """
-        return self._value.replace(" ", "")
+        return self._value.replace(" ", "").replace("-", "")
 
     @property
     def value(self) -> str:

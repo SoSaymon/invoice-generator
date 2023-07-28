@@ -1,1 +1,1 @@
-from value_objects import ValueObject
+from .value_objects import ValueObject
